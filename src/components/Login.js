@@ -4,12 +4,15 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  let jwt_token = localStorage.getItem("token");
+
   function handleLogin(e) {
     e.preventDefault();
     fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `bearer ${jwt_token}`,
       },
       body: JSON.stringify({
         username: username,
