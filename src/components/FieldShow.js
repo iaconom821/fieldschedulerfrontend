@@ -4,25 +4,33 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-function FieldShow({ handleSetGames }) {
+function FieldShow() {
   //get games logic
   const [games, setGames] = useState("");
-  let { id } = useParams;
+  let { field_id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/fields/${id}`)
+    fetch(`http://localhost:3000/api/v1/fields/${field_id}`, {
+      headers: { Authorization: `Bearer ${localStorage.token}` },
+    })
       .then((r) => r.json())
-      .then((games) => handleSetGames(games));
-  }, []);
+      .then((games) => setGames(games));
+  }, [field_id]);
 
-  let events = games.map((game) => {
-    return {
-      id: game.id,
-      title: game.id,
-      start: new Date(game.start_time),
-      end: new Date(game.end_time),
-    };
-  });
+  let events = [];
+  if (games.games) {
+    events = games.games.map((game) => {
+      const startTime = game.start_time.split("Z")[0];
+      const endTime = game.end_time.split("Z")[0];
+      return {
+        id: game.id,
+        title: games.name,
+        start: new Date(startTime),
+        end: new Date(endTime),
+      };
+    });
+  }
+  console.log(games.games);
   return (
     <FullCalendar
       initalView="timeGridWeek"

@@ -24,6 +24,7 @@ function Login() {
       .then((userInfo) => {
         console.log(userInfo);
         localStorage.token = userInfo.token;
+        localStorage.setItem(`userId`, `${userInfo.player.id}`);
       });
   }
 

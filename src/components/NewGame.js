@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-function NewGame({ fieldsArr, handleSetGames }) {
+function NewGame() {
   // New Game logic
   const [skill, setSkill] = useState(0);
   const [price, setPrice] = useState(0);
   const [startTime, setStartTime] = useState("2021-06-01T08:30");
   const [endTime, setEndTime] = useState("2021-06-01T08:30");
   const [fieldId, setFieldId] = useState("");
+  const [fields, setFields] = useState([]);
 
   function handleNewGame(e) {
     e.preventDefault();
@@ -21,16 +23,16 @@ function NewGame({ fieldsArr, handleSetGames }) {
         start_time: startTime,
         end_time: endTime,
         field_id: parseInt(fieldId),
-        player_id: 5,
-        recomended_skill: 5,
+        player_id: `${localStorage.userId}`,
+        recomended_skill: `${skill}`,
       }),
     })
       .then((res) => res.json())
-      .then((text) => handleSetGames(text));
+      .then((text) => console.log(text));
   }
   let fieldOptions = [];
-  if (fieldsArr[0]) {
-    fieldOptions = fieldsArr.map((field) => {
+  if (fields[0]) {
+    fieldOptions = fields.map((field) => {
       return (
         <option key={field.id} value={field.id}>
           {field.name}
@@ -38,11 +40,20 @@ function NewGame({ fieldsArr, handleSetGames }) {
       );
     });
   }
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/v1/fields/`, {
+      headers: { Authorization: `Bearer ${localStorage.token}` },
+    })
+      .then((r) => r.json())
+      .then((games) => setFields(games));
+  }, []);
+
   return (
     <form onSubmit={handleNewGame}>
       <label>New Game</label>
       <select onChange={(e) => setFieldId(e.target.value)}>
-        {fieldsArr ? fieldOptions : null}
+        {fields ? fieldOptions : null}
       </select>
       <input
         type="datetime-local"

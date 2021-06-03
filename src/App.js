@@ -5,6 +5,8 @@ import Nav from "./components/Nav.js";
 import Fields from "./components/Fields.js";
 import NewGame from "./components/NewGame.js";
 import GameShow from "./components/GameShow.js";
+import NewField from "./components/NewField";
+import FieldShow from "./components/FieldShow";
 
 function App() {
   return (
@@ -20,6 +22,15 @@ function App() {
         </Route>
         <Route path="/game/:id">
           <GameShow />
+        </Route>
+        <Route exact path="/newfield">
+          <NewField />
+        </Route>
+        <Route exact path="/newgame">
+          <NewGame />
+        </Route>
+        <Route path="/field/id">
+          <FieldShow />
         </Route>
       </Switch>
     </div>
