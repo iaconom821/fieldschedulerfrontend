@@ -24,10 +24,9 @@ function Login() {
       .then((userInfo) => {
         console.log(userInfo);
         localStorage.token = userInfo.token;
+        localStorage.setItem(`userId`, `${userInfo.player.id}`);
       });
   }
-  // GET Field Logic
-  // fetch('http://localhost:3000/api/v1/fields', {headers: {Authorization: `Bearer ${localStorage.token}`}}).then(res=>res.json()).then(text=>console.log(text))
 
   return (
     <>
