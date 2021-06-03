@@ -4,9 +4,8 @@ import { Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav.js";
 import Fields from "./components/Fields.js";
 import NewGame from "./components/NewGame.js";
-import GameShow from "./components/GameShow.js";
 import NewField from "./components/NewField";
-import FieldShow from "./components/FieldShow";
+import Games from './components/Games.js'
 
 function App() {
   return (
@@ -14,23 +13,20 @@ function App() {
       <h1>FieldScheduler</h1>
       <Nav />
       <Switch>
-        <Route path="/login">
+        <Route exact path="/login">
           <Login />
         </Route>
         <Route path="/fields">
           <Fields />
         </Route>
-        <Route path="/game/:id">
-          <GameShow />
+        <Route path="/games">
+          <Games />
         </Route>
         <Route exact path="/newfield">
           <NewField />
         </Route>
         <Route exact path="/newgame">
           <NewGame />
-        </Route>
-        <Route path="/field/id">
-          <FieldShow />
         </Route>
       </Switch>
     </div>
