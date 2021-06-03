@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
-function NewGame() {
-  // New Game logic
+function EditGame() {
+
   const [skill, setSkill] = useState(0);
   const [price, setPrice] = useState(0);
-  const [startTime, setStartTime] = useState("2021-06-01T08:30");
-  const [endTime, setEndTime] = useState("2021-06-01T08:30");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState('');
   const [fieldId, setFieldId] = useState("");
   const [fields, setFields] = useState([]);
 
+  const {game_id} = useParams()
 
   const history = useHistory()
 
-  function handleNewGame(e) {
+  function handleEditGame(e) {
     e.preventDefault();
 
-    fetch("http://localhost:3000/api/v1/games", {
-      method: "POST",
+    fetch(`http://localhost:3000/api/v1/games/${game_id}`, {
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${localStorage.token}`,
@@ -33,7 +34,6 @@ function NewGame() {
     })
       .then((res) => res.json())
       .then((text) => {
-        //console.log(text)
         history.push(`/fields/${text.field.id}`)
       });
   }
@@ -57,11 +57,22 @@ function NewGame() {
         setFields(games)
         setFieldId(games[0].id)
       });
-  }, []);
+    
+      fetch(`http://localhost:3000/api/v1/games/${game_id}`, {
+        headers: { Authorization: `Bearer ${localStorage.token}` },
+      })
+        .then((r) => r.json())
+        .then((games) => {
+          setSkill(parseInt(games.recommended_skill))
+          setPrice(games.price)
+          setStartTime(games.start_time.split('Z')[0])
+          setEndTime(games.end_time.split('Z')[0])
+        });
+  }, [game_id]);
 
   return (
-    <form onSubmit={handleNewGame}>
-      <label>New Game</label>
+    <form onSubmit={handleEditGame}>
+      <label>Edit Game</label>
       <select onChange={(e) => setFieldId(e.target.value)}>
         {fields ? fieldOptions : null}
       </select>
@@ -90,9 +101,9 @@ function NewGame() {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <button type="submit">Submit New Game</button>
+      <button type="submit">Submit Edited Game</button>
     </form>
   );
 }
 
-export default NewGame;
+export default EditGame;

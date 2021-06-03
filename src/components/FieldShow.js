@@ -1,5 +1,4 @@
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -30,7 +29,7 @@ function FieldShow() {
       };
     });
   }
-  console.log(games.games);
+  
   return (
     <FullCalendar
       initalView="timeGridWeek"
