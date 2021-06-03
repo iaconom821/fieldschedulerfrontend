@@ -12,7 +12,11 @@ function Fields() {
       headers: { Authorization: `Bearer ${localStorage.token}` },
     })
       .then((res) => res.json())
-      .then((text) => setFields(text));
+      .then((text) => {
+        if(!localStorage.token){
+          return null
+        }
+        setFields(text)});
   }, []);
   let match = useRouteMatch();
   const fieldLinks = fields.map((field) => {

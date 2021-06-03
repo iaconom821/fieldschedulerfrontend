@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function Nav() {
+  let history = useHistory()
+
   return (
     <div>
       <Link to="/login">Login</Link>
@@ -8,7 +10,10 @@ function Nav() {
       <Link to="/newgame">New Game</Link>
       <Link to="/fields">Fields</Link>
       <Link to="/games">Games</Link> 
-      <button onClick={()=>localStorage.clear()}>Log Out</button>
+      <button onClick={()=>{
+        localStorage.clear()
+        history.push('/login')
+        }}>Log Out</button>
     </div>
   );
 }

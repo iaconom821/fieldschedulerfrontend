@@ -12,7 +12,11 @@ function Games() {
       headers: { Authorization: `Bearer ${localStorage.token}` },
     })
       .then((res) => res.json())
-      .then((text) => setGames(text));
+      .then((text) => {
+        if(!localStorage.token){
+            return null
+        }
+        setGames(text)});
   }, []);
   let match = useRouteMatch();
   const gameLinks = games.map((game) => {

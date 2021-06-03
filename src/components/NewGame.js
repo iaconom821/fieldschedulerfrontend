@@ -54,6 +54,9 @@ function NewGame() {
     })
       .then((r) => r.json())
       .then((games) => {
+        if(!localStorage.token){
+          return null
+        }
         setFields(games)
         setFieldId(games[0].id)
       });
