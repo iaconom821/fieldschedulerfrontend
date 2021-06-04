@@ -177,8 +177,8 @@ function GameShow({ deleteGame }) {
   return (
     <>
       <StyledLabel as="p">Game Id: {game.id}</StyledLabel>
-      <StyledLabel as='p'>{`${new Date(game.start_time.split("Z")[0])}`}</StyledLabel>
-      <StyledLabel as='p'>{`${new Date(game.end_time.split("Z")[0])}`}</StyledLabel>
+      <StyledLabel as='p'>Start Time: {`${new Date(game.start_time.split("Z")[0]).toDateString()} ${new Date(game.start_time.split("Z")[0]).toLocaleTimeString()}`}</StyledLabel>
+      <StyledLabel as='p'>End Time: {`${new Date(game.end_time.split("Z")[0]).toDateString()} ${new Date(game.end_time.split("Z")[0]).toLocaleTimeString()}`}</StyledLabel>
       <StyledDiv>
         <img  style={{margin: '16px'}} src={game.field.img_url} alt={game.field.id} />
         <div style={{margin: '16px'}}>

@@ -14,6 +14,10 @@ const StyledLink = styled(Link)`
   padding: 4px;
   font-weight: bold;`
 
+const StyledDiv = styled.div`
+  width: 90%;
+  margin: auto;`
+
 function FieldShow() {
   //get games logic
   const [games, setGames] = useState("");
@@ -48,12 +52,15 @@ function FieldShow() {
 
   return (
     <>
+    <h2 style={{color: '#FFFF00'}}>{games.name}</h2>
     {gamesList}
-    <FullCalendar
-      initalView="timeGridWeek"
-      plugins={[timeGridPlugin]}
-      events={events}
-    />
+    <StyledDiv>
+      <FullCalendar
+        initalView="timeGridWeek"
+        plugins={[timeGridPlugin]}
+        events={events}
+      />
+    </StyledDiv>
     </>
   );
 }
