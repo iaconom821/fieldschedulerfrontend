@@ -35,6 +35,10 @@ function Games() {
         setGames(text)});
   }, []);
   let match = useRouteMatch();
+
+  if(!localStorage.userId){
+    return <h2>Please Log In or Sign Up</h2>
+  }
   
   if(!games[0]){
       return <h2>Loading...</h2>

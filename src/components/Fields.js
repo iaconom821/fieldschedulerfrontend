@@ -42,7 +42,14 @@ function Fields() {
         setFields(text)});
   }, []);
 
+  
+
   let match = useRouteMatch();
+
+  if(!localStorage.userId){
+    return <h2>Please Log In or Sign Up</h2>
+  }
+  
   if(!fields[0]){
     return <h2 style={{color: '#00FFFF'}}>Loading...</h2>
   }

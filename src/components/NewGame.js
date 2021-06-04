@@ -60,6 +60,7 @@ function NewGame() {
         history.push(`/fields/${text.field.id}`)
       });
   }
+
   let fieldOptions = [];
   if (fields[0]) {
     fieldOptions = fields.map((field) => {
@@ -84,6 +85,10 @@ function NewGame() {
         setFieldId(games[0].id)
       });
   }, []);
+
+  if(!localStorage.userId){
+    return <h2>Please Log In or Sign Up</h2>
+  }
 
   return (
     <StyledForm onSubmit={handleNewGame}>

@@ -27,6 +27,10 @@ function PlayerShow() {
     });
     }, [])
 
+    if(!localStorage.userId){
+        return <h2>Please Log In or Sign Up</h2>
+    }
+
     if(!player){
         return <h2>Loading...</h2>
     }

@@ -13,6 +13,8 @@ const StyledLink = styled(Link)`
 
 function Nav() {
   let history = useHistory();
+  
+
 
   return (
     <div>
@@ -24,7 +26,7 @@ function Nav() {
       <StyledLink to="/newgame">New Game</StyledLink>
       <StyledLink to="/games">Games</StyledLink>
       <StyledLink as='button'
-        onClick={() => {
+          onClick={() => {
           localStorage.clear();
           history.push("/login");
         }}

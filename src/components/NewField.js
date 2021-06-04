@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
@@ -32,6 +33,8 @@ function NewField(handleSetField, fieldArr) {
   const [imgUrl, setImgUrl] = useState("");
   const [fieldName, setFieldName] = useState("");
 
+  const history = useHistory()
+
   function handleNewField(e) {
     e.preventDefault();
 
@@ -49,7 +52,11 @@ function NewField(handleSetField, fieldArr) {
       }),
     })
       .then((res) => res.json())
-      .then((text) => handleSetField(text));
+      .then((text) => history.push(`/fields/${text.id}`));
+  }
+
+  if(!localStorage.userId){
+    return <h2>Please Log In or Sign Up</h2>
   }
 
   return (
@@ -80,7 +87,7 @@ function NewField(handleSetField, fieldArr) {
         value={fieldName}
         onChange={(e) => setFieldName(e.target.value)}
       />
-      <StyledLabel as="submit" type="submit">Submit New Field</StyledLabel>
+      <StyledLabel as="button" type="submit">Submit New Field</StyledLabel>
     </StyledForm>
   );
 }
