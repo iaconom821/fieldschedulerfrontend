@@ -19,6 +19,11 @@ function Games() {
         setGames(text)});
   }, []);
   let match = useRouteMatch();
+  
+  if(!games[0]){
+      return <h2>Loading...</h2>
+  }
+
   const gameLinks = games.map((game) => {
     return (
       <Link to={`${match.url}/${game.id}`} id={game.id} key={game.id}>

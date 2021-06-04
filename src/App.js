@@ -7,6 +7,7 @@ import NewGame from "./components/NewGame.js";
 import NewField from "./components/NewField";
 import Games from "./components/Games.js";
 import SignUp from "./components/SignUp.js";
+import PlayerShow from "./components/PlayerShow.js";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path="/signup">
           <SignUp />
+        </Route>
+        <Route path="/players/profile">
+          <PlayerShow />
         </Route>
       </Switch>
     </div>

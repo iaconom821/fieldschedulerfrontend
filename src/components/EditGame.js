@@ -11,7 +11,7 @@ function EditGame() {
   const [fields, setFields] = useState([]);
 
   const {game_id} = useParams()
-
+    console.log(game_id)
   const history = useHistory()
 
   function handleEditGame(e) {

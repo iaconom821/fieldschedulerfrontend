@@ -10,6 +10,7 @@ function Nav() {
       <Link to="/newgame">New Game</Link>
       <Link to="/fields">Fields</Link>
       <Link to="/games">Games</Link>
+      <Link to={`/players/profile`}>Profile</Link>
       <button
         onClick={() => {
           localStorage.clear();

@@ -24,6 +24,10 @@ function Login() {
     })
       .then((res) => res.json())
       .then((userInfo) => {
+        if(!userInfo.token){
+          alert("Invalid Username or Password")
+          return null
+        }
         localStorage.token = userInfo.token;
         localStorage.setItem(`userId`, `${userInfo.player.id}`);
         history.push("/fields");

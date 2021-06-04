@@ -38,7 +38,9 @@ function Fields() {
   return (
     <>
       {fieldLinks}
-      <Switch>{fieldRoutes}</Switch>
+      <Switch>
+        {fieldRoutes}
+      </Switch>
     </>
   );
 }

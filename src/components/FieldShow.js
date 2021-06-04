@@ -1,7 +1,8 @@
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, Switch, Route } from "react-router-dom";
+import GameShow from "./GameShow.js"
 
 function FieldShow() {
   //get games logic
@@ -17,6 +18,7 @@ function FieldShow() {
   }, [field_id]);
 
   let events = [];
+  let gamesList = []
   if (games.games) {
     events = games.games.map((game) => {
       const startTime = game.start_time.split("Z")[0];
@@ -28,14 +30,21 @@ function FieldShow() {
         end: new Date(endTime),
       };
     });
+
+    gamesList = games.games.map(game => {
+      return <Link key={game.id} to={location => location.pathname = `/games/${game.id}`}>{game.id}</Link>
+    })
   }
-  
+
   return (
+    <>
+    {gamesList}
     <FullCalendar
       initalView="timeGridWeek"
       plugins={[timeGridPlugin]}
       events={events}
     />
+    </>
   );
 }
 

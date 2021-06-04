@@ -26,7 +26,12 @@ function SignUp() {
       }),
     })
       .then((res) => res.json())
-      .then((resp) => (localStorage.token = resp.token));
+      .then((resp) => {
+        if(!resp.token){
+          alert(`${resp}`)
+          return null 
+        }
+        (localStorage.token = resp.token)});
   }
 
   return (
