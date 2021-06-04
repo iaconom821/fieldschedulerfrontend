@@ -82,6 +82,9 @@ function NewGame() {
           return null
         }
         setFields(games)
+        if(!games[0]){
+          return null
+        }
         setFieldId(games[0].id)
       });
   }, []);
