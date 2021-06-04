@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react'
+import styled from 'styled-components'
+
+const StyledP = styled.p`
+    color: #ff1818;`
 
 function PlayerShow() {
     const [player, setPlayer] = useState(null)
@@ -9,27 +13,31 @@ function PlayerShow() {
     })
     .then((r) => r.json())
     .then((player) => {
+        if(!player.name){
+            return null
+        }
         setPlayer(player);
     });
     }, [])
 
     if(!player){
-        return <h2>Loading....</h2>
+        return <h2>Loading...</h2>
     }
 
     let games = []
     if(player.slots[0]){
         games = player.slots.map(game => {
-            return <p key={game.id}>Game Id: {game.game_id}</p>
+            return <StyledP key={game.id}>Game Id: {game.game_id}</StyledP>
         })
     }
 
     return (
         <>
-        <p>Name: {player.name}</p>
-        <p>Age: {player.age}</p>
-        <p>Skill Level: {player.skill_level}</p>
-        <p>Username: {player.username}</p>
+        <StyledP as="h2">Player Profile</StyledP>
+        <StyledP>Name: {player.name}</StyledP>
+        <StyledP>Age: {player.age}</StyledP>
+        <StyledP>Skill Level: {player.skill_level}</StyledP>
+        <StyledP>Username: {player.username}</StyledP>
         <ul>
             {games}
         </ul>

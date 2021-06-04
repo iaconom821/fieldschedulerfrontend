@@ -1,5 +1,28 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+`
+
+const StyledLabel = styled.label`
+  color: #39FF14;
+  `
+
+const StyledInput = styled.input`
+  display: block;
+  color: magenta;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align-last: center;
+  text-align: center;
+  margin: 4px;
+  `
 
 function NewGame() {
   // New Game logic
@@ -63,38 +86,42 @@ function NewGame() {
   }, []);
 
   return (
-    <form onSubmit={handleNewGame}>
-      <label>New Game</label>
-      <select onChange={(e) => setFieldId(e.target.value)}>
+    <StyledForm onSubmit={handleNewGame}>
+      <StyledLabel>New Game</StyledLabel><br/>
+      <br/>
+      <StyledLabel>Fields</StyledLabel>
+      <StyledInput as='select' onChange={(e) => setFieldId(e.target.value)}>
         {fields ? fieldOptions : null}
-      </select>
-      <input
+      </StyledInput>
+      <StyledLabel>Start Time</StyledLabel>
+      <StyledInput
         type="datetime-local"
         name="start-time"
         value={startTime}
         onChange={(e) => setStartTime(e.target.value.toString())}
       />
-      <input
+      <StyledLabel>End Time</StyledLabel>
+      <StyledInput
         type="datetime-local"
         name="end-time"
         value={endTime}
         onChange={(e) => setEndTime(e.target.value.toString())}
       />
-      <label>Recomended Skill</label>
-      <input
+      <StyledLabel>Recomended Skill</StyledLabel>
+      <StyledInput
         type="number"
         value={skill}
         onChange={(e) => setSkill(e.target.value)}
       />
-      <label>Price</label>
-      <input
+      <StyledLabel>Price</StyledLabel>
+      <StyledInput
         type="number"
         step="0.01"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <button type="submit">Submit New Game</button>
-    </form>
+      <StyledLabel as='button' type="submit">Submit New Game</StyledLabel>
+    </StyledForm>
   );
 }
 

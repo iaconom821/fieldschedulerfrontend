@@ -1,5 +1,31 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
+`
+
+const StyledLabel = styled.label`
+  color: #39FF14;
+  text-align: center;
+  `
+
+const StyledInput = styled.input`
+  display: block;
+  color: magenta;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: center;
+  margin: 4px;
+  box-sizing: border-box;
+  `
 
 function Login() {
   // Login Logic
@@ -37,21 +63,23 @@ function Login() {
   return (
     <>
       {/* Login Form  */}
-      <form onSubmit={handleLogin}>
-        <label>Username</label>
-        <input
+      <StyledLabel as="h2">Login</StyledLabel>
+      <StyledForm onSubmit={handleLogin}>
+        <StyledLabel>Username</StyledLabel>
+        <StyledInput
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label>Password</label>
-        <input
+        <StyledLabel>Password</StyledLabel>
+        <StyledInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Submit</button>
-      </form>
+        <StyledInput as="button" style={{position: 'relative',
+  left: '50%', transform: 'translate(-62%)'}} type="submit">Submit</StyledInput >
+      </StyledForm>
     </>
   );
 }

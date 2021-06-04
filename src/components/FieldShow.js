@@ -1,8 +1,18 @@
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState, useEffect } from "react";
-import { useParams, Link, Switch, Route } from "react-router-dom";
-import GameShow from "./GameShow.js"
+import { useParams, Link } from "react-router-dom";
+import styled from 'styled-components'
+
+const StyledLink = styled(Link)`
+  margin: 4px;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 3px;
+  color: violet;
+  background: whitesmoke;
+  padding: 4px;
+  font-weight: bold;`
 
 function FieldShow() {
   //get games logic
@@ -25,14 +35,14 @@ function FieldShow() {
       const endTime = game.end_time.split("Z")[0];
       return {
         id: game.id,
-        title: games.name,
+        title: `${games.name} ${game.id}`,
         start: new Date(startTime),
         end: new Date(endTime),
       };
     });
 
     gamesList = games.games.map(game => {
-      return <Link key={game.id} to={location => location.pathname = `/games/${game.id}`}>{game.id}</Link>
+      return <StyledLink key={game.id} to={location => location.pathname = `/games/${game.id}`}>{game.id}</StyledLink>
     })
   }
 

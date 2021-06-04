@@ -8,6 +8,42 @@ import {
   Link,
 } from "react-router-dom";
 import EditGame from "./EditGame.js";
+import styled from 'styled-components'
+
+const StyledLabel = styled.label`
+  color: #39FF14;
+  `
+
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: center;`
+
+const StyledBottomDiv = styled.div`
+  justify-content: center;`
+
+const StyledP = styled.p`
+  color: #04d9ff;`
+
+const StyledButton = styled.button`
+  margin: 0 auto;
+  display: block;
+  color: magenta;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align-last: center;
+  text-align: center;
+  `
+const StyledLinkTo = styled(Link)`
+  margin: 0 auto;
+  display: block;
+  width: 100px;
+  background: whitesmoke;
+  text-decoration: none;
+  color: magenta;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align-last: center;
+  text-align: center;`
 
 function GameShow({ deleteGame }) {
   const [game, setGame] = useState("");
@@ -39,7 +75,7 @@ function GameShow({ deleteGame }) {
   }, [game_id]);
 
   if (!game) {
-    return <h2>Loading....</h2>;
+    return <StyledP as='h2'>Loading....</StyledP>;
   }
 
   function handleJoinGame() {
@@ -86,7 +122,7 @@ function GameShow({ deleteGame }) {
   }
 
   const showPlayers = filteredPlayers.map((player) => {
-    return <p key={player.id}>{player.name}</p>;
+    return <StyledP key={player.id}>{player.name}</StyledP>;
   });
 
   function handleLeaveGame() {
@@ -140,22 +176,28 @@ function GameShow({ deleteGame }) {
 
   return (
     <>
-      <p>{game.id}</p>
-      <p>{`${new Date(game.start_time.split("Z")[0])}`}</p>
-      <p>{`${new Date(game.end_time.split("Z")[0])}`}</p>
-      <p>Players</p>
-      {showPlayers}
-      <img src={game.field.img_url} alt={game.field.id} />
-      <form onSubmit={handleSelectPlayer}>
-        <select onChange={(e) => setSelectedPlayer(e.target.value)}>
-          {playerOptions}
-        </select>
-        <input type="submit" value="Add a Friend"/>
-      </form>
-      <button onClick={handleJoinGame}>Join Game</button>
-      <button onClick={handleLeaveGame}>Leave Game</button>
-      {parseInt(localStorage.userId) === parseInt(game.player_id) ? <button onClick={handleDeleteGame}>Delete Game</button> : null }
-      <Link to={`${match.url}/${game.id}/edit`}>Edit Game</Link>
+      <StyledLabel as="p">Game Id: {game.id}</StyledLabel>
+      <StyledLabel as='p'>{`${new Date(game.start_time.split("Z")[0])}`}</StyledLabel>
+      <StyledLabel as='p'>{`${new Date(game.end_time.split("Z")[0])}`}</StyledLabel>
+      <StyledDiv>
+        <img  style={{margin: '16px'}} src={game.field.img_url} alt={game.field.id} />
+        <div style={{margin: '16px'}}>
+          <StyledP>Players</StyledP>
+          {showPlayers}
+        </div>
+      </StyledDiv>
+      <StyledBottomDiv>
+        <form onSubmit={handleSelectPlayer}>
+          <StyledButton as='select' onChange={(e) => setSelectedPlayer(e.target.value)}>
+            {playerOptions}
+          </StyledButton>
+          <StyledButton type="submit">Add Friend</StyledButton>
+        </form>
+        <StyledButton onClick={handleJoinGame}>Join Game</StyledButton>
+        <StyledButton onClick={handleLeaveGame}>Leave Game</StyledButton>
+        {parseInt(localStorage.userId) === parseInt(game.player_id) ? <StyledButton onClick={handleDeleteGame}>Delete Game</StyledButton> : null }
+        <StyledLinkTo to={`${match.url}/${game.id}/edit`}>Edit Game</StyledLinkTo>
+      </StyledBottomDiv>
       <Switch>
         <Route path={`${match.url}/:game_id/edit`}>
           <EditGame />

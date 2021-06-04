@@ -1,5 +1,27 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+justify-content:center;
+`
+
+const StyledLabel = styled.label`
+  color: #39FF14;
+  `
+
+const StyledInput = styled.input`
+  margin: 0 auto;
+  margin-bottom: 4px;
+  display: block;
+  color: magenta;
+  width: 50%;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align-last: center;
+  text-align: center;
+  `
+
 
 function EditGame() {
 
@@ -71,38 +93,38 @@ function EditGame() {
   }, [game_id]);
 
   return (
-    <form onSubmit={handleEditGame}>
-      <label>Edit Game</label>
-      <select onChange={(e) => setFieldId(e.target.value)}>
+    <StyledForm onSubmit={handleEditGame}>
+      <StyledLabel>Edit Game</StyledLabel>
+      <StyledInput as="select" onChange={(e) => setFieldId(e.target.value)}>
         {fields ? fieldOptions : null}
-      </select>
-      <input
+      </StyledInput>
+      <StyledInput
         type="datetime-local"
         name="start-time"
         value={startTime}
         onChange={(e) => setStartTime(e.target.value.toString())}
       />
-      <input
+      <StyledInput
         type="datetime-local"
         name="end-time"
         value={endTime}
         onChange={(e) => setEndTime(e.target.value.toString())}
       />
-      <label>Recomended Skill</label>
-      <input
+      <StyledLabel>Recomended Skill</StyledLabel>
+      <StyledInput
         type="number"
         value={skill}
         onChange={(e) => setSkill(e.target.value)}
       />
-      <label>Price</label>
-      <input
+      <StyledLabel>Price</StyledLabel>
+      <StyledInput
         type="number"
         step="0.01"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <button type="submit">Submit Edited Game</button>
-    </form>
+      <StyledInput as="button" type="submit">Submit Edited Game</StyledInput>
+    </StyledForm>
   );
 }
 

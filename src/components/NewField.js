@@ -1,4 +1,28 @@
 import { useState } from "react";
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+`
+
+const StyledLabel = styled.label`
+  color: #39FF14;
+  `
+
+const StyledInput = styled.input`
+  display: block;
+  color: magenta;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align-last: center;
+  text-align: center;
+  margin: 4px;
+  box-sizing: border-box;
+  `
 
 function NewField(handleSetField, fieldArr) {
   // New Field Logic
@@ -29,34 +53,35 @@ function NewField(handleSetField, fieldArr) {
   }
 
   return (
-    <form onSubmit={handleNewField}>
-      <label>New Field</label>
-      <input
+    <StyledForm onSubmit={handleNewField}>
+      <StyledLabel>New Field</StyledLabel><br/>
+      <br/>
+      <StyledLabel>Address</StyledLabel>
+      <StyledInput
         type="text"
-        placeholder="Address"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
-      <input
+      <StyledLabel>Field Dimensions</StyledLabel>
+      <StyledInput
         type="text"
-        placeholder="Size"
         value={size}
         onChange={(e) => setSize(e.target.value)}
       />
-      <input
+      <StyledLabel>Image URL</StyledLabel>
+      <StyledInput
         type="url"
-        placeholder="Image URL"
         value={imgUrl}
         onChange={(e) => setImgUrl(e.target.value)}
       />
-      <input
+      <StyledLabel>Field Name</StyledLabel>
+      <StyledInput
         type="text"
-        placeholder="Field Name"
         value={fieldName}
         onChange={(e) => setFieldName(e.target.value)}
       />
-      <button type="submit">Submit New Field</button>
-    </form>
+      <StyledLabel as="submit" type="submit">Submit New Field</StyledLabel>
+    </StyledForm>
   );
 }
 
