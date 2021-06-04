@@ -196,7 +196,7 @@ function GameShow({ deleteGame }) {
         <StyledButton onClick={handleJoinGame}>Join Game</StyledButton>
         <StyledButton onClick={handleLeaveGame}>Leave Game</StyledButton>
         {parseInt(localStorage.userId) === parseInt(game.player_id) ? <StyledButton onClick={handleDeleteGame}>Delete Game</StyledButton> : null }
-        <StyledLinkTo to={`${match.url}/${game.id}/edit`}>Edit Game</StyledLinkTo>
+        {parseInt(localStorage.userId) === parseInt(game.player_id) ? <StyledLinkTo to={`${match.url}/${game.id}/edit`}>Edit Game</StyledLinkTo> : null }
       </StyledBottomDiv>
       <Switch>
         <Route path={`${match.url}/:game_id/edit`}>

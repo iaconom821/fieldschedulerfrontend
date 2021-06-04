@@ -5,7 +5,8 @@ import styled from 'styled-components'
 
 const StyledDiv = styled.div`
   display: flex;
-  justify-content: center;`
+  justify-content: center;
+  flex-wrap: wrap;`
 
 const StyledLink = styled(Link)`
   padding: 4px;

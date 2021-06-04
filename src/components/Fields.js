@@ -18,7 +18,8 @@ const StyledLink = styled(Link)`
 
 const StyledDiv = styled.div`
   display: flex;
-  justify-content: center;`
+  justify-content: center;
+  flex-wrap: wrap;`
 
 const StyledInnerDiv = styled.div`
   width: 200px;`
@@ -29,7 +30,6 @@ const StyledP = styled.p`
 function Fields() {
   // GET Field Logic
   const [fields, setFields] = useState([]);
-
   useEffect(() => {
     fetch("http://localhost:3000/api/v1/fields", {
       headers: { Authorization: `Bearer ${localStorage.token}` },
@@ -41,21 +41,25 @@ function Fields() {
         }
         setFields(text)});
   }, []);
+
   let match = useRouteMatch();
+  if(!fields[0]){
+    return <h2 style={{color: '#00FFFF'}}>Loading...</h2>
+  }
   const fieldLinks = fields.map((field) => {
     return (
-      <StyledInnerDiv>
-      <StyledLink to={`${match.url}/${field.id}`} key={field.id}>
+      <StyledInnerDiv key={field.id}>
+      <StyledLink to={`${match.url}/${field.id}`} >
         {field.name}
       </StyledLink>
-      <StyledP>{field.address}</StyledP>
+      <StyledP >{field.address}</StyledP>
       </StyledInnerDiv>
     );
   });
 
   const fieldRoutes = fields.map((field) => {
     return (
-      <Route path={`${match.url}/:field_id`} key={field.id}>
+      <Route key={field.address} path={`${match.url}/:field_id`} >
         <FieldShow />
       </Route>
     );
