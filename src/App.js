@@ -5,7 +5,8 @@ import Nav from "./components/Nav.js";
 import Fields from "./components/Fields.js";
 import NewGame from "./components/NewGame.js";
 import NewField from "./components/NewField";
-import Games from './components/Games.js'
+import Games from "./components/Games.js";
+import SignUp from "./components/SignUp.js";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
         </Route>
         <Route exact path="/newgame">
           <NewGame />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
         </Route>
       </Switch>
     </div>

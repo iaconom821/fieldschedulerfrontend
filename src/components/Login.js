@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-
 function Login() {
   // Login Logic
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory()
+  const history = useHistory();
 
   let jwt_token = localStorage.getItem("token");
 
@@ -27,7 +26,7 @@ function Login() {
       .then((userInfo) => {
         localStorage.token = userInfo.token;
         localStorage.setItem(`userId`, `${userInfo.player.id}`);
-        history.push('/fields')
+        history.push("/fields");
       });
   }
 
