@@ -1,10 +1,11 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link} from "react-router-dom";
 import styled from 'styled-components'
 
 const StyledLink = styled(Link)`
   padding: 4px;
-  margin: 2px;
+  margin: 3px;
   border: 1px solid black;
+  border-radius: 2px;
   background: whitesmoke;
   font-size: .9em;
   text-decoration: none;
@@ -12,7 +13,6 @@ const StyledLink = styled(Link)`
   font: Arial;`
 
 function Nav() {
-  let history = useHistory();
   
 
 
@@ -25,10 +25,9 @@ function Nav() {
       <StyledLink to="/fields">Fields</StyledLink>
       <StyledLink to="/newgame">New Game</StyledLink>
       <StyledLink to="/games">Games</StyledLink>
-      <StyledLink as='button'
+      <StyledLink to='/login'
           onClick={() => {
           localStorage.clear();
-          history.push("/login");
         }}
       >
         Log Out

@@ -12,7 +12,7 @@ import PlayerShow from "./components/PlayerShow.js";
 function App() {
   return (
     <div className="App">
-      <h1 style={{color: '#FFFF00'}}>Field Scheduler</h1>
+      <h1 style={{color: '#FFFF00'}}>Let's Play Pick-Up Soccer</h1>
       <Nav />
       <Switch>
         <Route exact path="/login">

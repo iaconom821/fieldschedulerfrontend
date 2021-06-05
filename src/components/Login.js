@@ -3,10 +3,8 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
+  position: relative;
+  margin: auto;
   text-align: center;
   justify-content: center;
   padding: 5px;
@@ -15,6 +13,7 @@ const StyledForm = styled.form`
 const StyledLabel = styled.label`
   color: #39FF14;
   text-align: center;
+  margin: 10px;
   `
 
 const StyledInput = styled.input`
@@ -23,7 +22,7 @@ const StyledInput = styled.input`
   border-radius: 5px;
   border: 1px solid black;
   text-align: center;
-  margin: 4px;
+  margin: auto;
   box-sizing: border-box;
   `
 
@@ -77,8 +76,7 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <StyledInput as="button" style={{position: 'relative',
-  left: '50%', transform: 'translate(-62%)'}} type="submit">Submit</StyledInput >
+        <StyledInput as="button" style={{marginTop: '4px'}} type="submit">Login</StyledInput >
       </StyledForm>
     </>
   );
