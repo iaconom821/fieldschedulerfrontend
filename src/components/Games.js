@@ -67,11 +67,11 @@ function Games() {
 
   return (
     <>
+      <Switch>{gameRoutes}</Switch>
       <h2 style={{color: '#FFFF00'}}>Games</h2>
       <StyledDiv>
         {gameLinks}
       </StyledDiv>
-      <Switch>{gameRoutes}</Switch>
     </>
   );
 }
