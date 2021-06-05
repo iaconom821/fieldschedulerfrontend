@@ -3,10 +3,11 @@ import {useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
+  position: relative;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
 `
 
 const StyledLabel = styled.label`
@@ -16,16 +17,14 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input`
   display: block;
   color: magenta;
-  width: 100%;
   border-radius: 5px;
   border: 1px solid black;
-  text-align-last: center;
   text-align: center;
-  margin: 4px;
+  margin: auto;
   box-sizing: border-box;
   `
 
-function NewField(handleSetField, fieldArr) {
+function NewField() {
   // New Field Logic
 
   const [address, setAddress] = useState("");
@@ -61,7 +60,7 @@ function NewField(handleSetField, fieldArr) {
 
   return (
     <StyledForm onSubmit={handleNewField}>
-      <StyledLabel>New Field</StyledLabel><br/>
+      <StyledLabel style={{fontWeight: "bolder"}}>New Field</StyledLabel><br/>
       <br/>
       <StyledLabel>Address</StyledLabel>
       <StyledInput
@@ -87,7 +86,7 @@ function NewField(handleSetField, fieldArr) {
         value={fieldName}
         onChange={(e) => setFieldName(e.target.value)}
       />
-      <StyledLabel as="button" type="submit">Submit New Field</StyledLabel>
+      <StyledInput as="button" type="submit">Submit New Field</StyledInput>
     </StyledForm>
   );
 }

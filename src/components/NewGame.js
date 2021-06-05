@@ -3,10 +3,12 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
+  position: relative;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
+  width: fit-content;
 `
 
 const StyledLabel = styled.label`
@@ -16,23 +18,27 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input`
   display: block;
   color: magenta;
-  width: 100%;
   border-radius: 5px;
   border: 1px solid black;
-  text-align-last: center;
   text-align: center;
-  margin: 4px;
+  margin: auto;
+  text-align-last: center;
+  width: 100%;
+  box-sizing: border-box;
   `
 
 function NewGame() {
   // New Game logic
   const [skill, setSkill] = useState(0);
   const [price, setPrice] = useState(0);
-  const [startTime, setStartTime] = useState("2021-06-01T08:30");
-  const [endTime, setEndTime] = useState("2021-06-01T08:30");
+  const [startTime, setStartTime] = useState(new Date(Date.now()).toISOString().split('Z')[0]);
+  const [endTime, setEndTime] = useState(new Date(Date.now()).toISOString().split('Z')[0]);
   const [fieldId, setFieldId] = useState("");
   const [fields, setFields] = useState([]);
+  
+  
 
+  console.log()
 
   const history = useHistory()
 
@@ -95,7 +101,7 @@ function NewGame() {
 
   return (
     <StyledForm onSubmit={handleNewGame}>
-      <StyledLabel>New Game</StyledLabel><br/>
+      <StyledLabel style={{fontWeight: "bolder"}}>New Game</StyledLabel><br/>
       <br/>
       <StyledLabel>Fields</StyledLabel>
       <StyledInput as='select' onChange={(e) => setFieldId(e.target.value)}>
@@ -128,7 +134,7 @@ function NewGame() {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <StyledLabel as='button' type="submit">Submit New Game</StyledLabel>
+      <StyledInput as='button' type="submit">Submit New Game</StyledInput>
     </StyledForm>
   );
 }
