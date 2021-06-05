@@ -2,10 +2,11 @@ import { useState } from "react";
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
+  position: relative;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  padding: 5px;
 `
 
 const StyledLabel = styled.label`
@@ -15,12 +16,10 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input`
   display: block;
   color: magenta;
-  width: 100%;
   border-radius: 5px;
   border: 1px solid black;
-  text-align-last: center;
   text-align: center;
-  margin: 4px;
+  margin: auto;
   box-sizing: border-box;
   `
 
