@@ -11,6 +11,10 @@ const StyledLink = styled(Link)`
     text-align: center;
     text-decoration: none;`
 
+const StyledDiv = styled.div`
+    display: flex;
+    justify-content: center;`
+
 function PlayerShow() {
     const [player, setPlayer] = useState(null)
 
@@ -50,18 +54,27 @@ function PlayerShow() {
     return (
         <>
         <StyledP as="h2">Player Profile</StyledP>
-        <StyledP>Name: {player.name}</StyledP>
-        <StyledP>Age: {player.age}</StyledP>
-        <StyledP>Skill Level: {player.skill_level}</StyledP>
-        <StyledP>Username: {player.username}</StyledP>
-        <StyledP>Organized:</StyledP>
-        <ul>
-            {organizedGames}
-        </ul>
-        <StyledP>Playing In:</StyledP>
-        <ul>
-            {games}
-        </ul>
+        <StyledDiv>
+            <div>
+                <StyledP>Name: {player.name}</StyledP>
+                <StyledP>Age: {player.age}</StyledP>
+                <StyledP>Skill Level: {player.skill_level}</StyledP>
+                <StyledP>Username: {player.username}</StyledP>
+            </div>
+            <div>
+            <StyledP>Games Organized:</StyledP>
+                <ul>
+                    {organizedGames}
+                </ul>
+                
+            </div>
+            <div>
+                <StyledP>Playing In:</StyledP>
+                <ul>
+                    {games}
+                </ul>
+            </div>
+        </StyledDiv>
         </>
     )
 }

@@ -50,7 +50,6 @@ function GameShow({ deleteGame }) {
   const [slots, setSlots] = useState([]);
   const [players, setPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState('')
-  const [playerId, setPlayerId] = useState('')
 
   let { game_id } = useParams();
   let history = useHistory();
@@ -80,6 +79,11 @@ function GameShow({ deleteGame }) {
   }
 
   function handleJoinGame() {
+
+    console.log(game, slots)
+
+    if (game.slots.find(player => player.player_id === 0)){}
+
     fetch(`http://localhost:3000/api/v1/slots`, {
       method: "POST",
       headers: { 
@@ -94,7 +98,6 @@ function GameShow({ deleteGame }) {
       .then((r) => r.json())
       .then((players) => {
         setSlots([...slots, players]);
-        setPlayerId(parseInt(players.player_id))
       });
     
       fetch(`http://localhost:3000/api/v1/players`, {
@@ -141,7 +144,7 @@ function GameShow({ deleteGame }) {
         price: game.price 
       })
     })
-      .then((r) => {setSlots(slots.filter(slot => parseInt(r.url.split("/")[r.url.split("/").length - 1]) !== parseInt(slot.id))); setPlayerId('')})
+      .then((r) => setSlots(slots.filter(slot => parseInt(r.url.split("/")[r.url.split("/").length - 1]) !== parseInt(slot.id))))
   }
 
   const playerOptions = players.map((player, i) => {
@@ -176,11 +179,6 @@ function GameShow({ deleteGame }) {
         });
   }
 
-   if (game.slots.find(player=>parseInt(player.player_id) === parseInt(localStorage.userId))){
-     if(!playerId){setPlayerId(game.slots.find(player=>parseInt(player.player_id) === parseInt(localStorage.userId)).player_id)}
-     
-   }
-
   return (
     <>
       <StyledLabel as="p">Game Id: {game.id}</StyledLabel>
@@ -199,8 +197,9 @@ function GameShow({ deleteGame }) {
             {playerOptions}
           </StyledButton>
           <StyledButton type="submit">Add Friend</StyledButton>
-        </form>
-        {game.slots.find(player=>parseInt(player.player_id) === parseInt(localStorage.userId)) ? <StyledButton onClick={handleLeaveGame}>Leave Game</StyledButton> : <StyledButton onClick={handleJoinGame}>Join Game</StyledButton>}
+        </form> 
+        <StyledButton onClick={handleJoinGame}>Join Game</StyledButton>
+        <StyledButton onClick={handleLeaveGame}>Leave Game</StyledButton>  
         {parseInt(localStorage.userId) === parseInt(game.player_id) ? <StyledButton onClick={handleDeleteGame}>Delete Game</StyledButton> : null }
         {parseInt(localStorage.userId) === parseInt(game.player_id) ? <StyledLinkTo to={`${match.url}/${game.id}/edit`}>Edit Game</StyledLinkTo> : null }
       </StyledBottomDiv>
