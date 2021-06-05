@@ -59,7 +59,7 @@ function SignUp() {
 
   return (
     <div>
-      <h2 style={{color: '#39FF14', margin: '0px', marginTop: '10px'}}>Signup</h2>
+      <h2 style={{color: '#39FF14', margin: '0px', marginTop: '10px'}}>Sign Up</h2>
       <StyledForm onSubmit={(e) => signUp(e)}>
         <StyledLabel>Name</StyledLabel>
         <StyledInput
@@ -82,7 +82,7 @@ function SignUp() {
           value={skill}
           onChange={(e) => setSkill(e.target.value)}
         />
-        <StyledLabel>UserName</StyledLabel>
+        <StyledLabel>Username</StyledLabel>
         <StyledInput
           name="username"
           type="text"
