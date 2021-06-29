@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const StyledForm = styled.form`
   position: absolute;
@@ -10,12 +10,12 @@ const StyledForm = styled.form`
   text-align: center;
   justify-content: center;
   padding: 5px;
-`
+`;
 
 const StyledLabel = styled.label`
-  color: #39FF14;
+  color: #39ff14;
   text-align: center;
-  `
+`;
 
 const StyledInput = styled.input`
   display: block;
@@ -25,7 +25,7 @@ const StyledInput = styled.input`
   text-align: center;
   margin: 4px;
   box-sizing: border-box;
-  `
+`;
 
 function Login() {
   // Login Logic
@@ -37,7 +37,7 @@ function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/api/v1/login", {
+    fetch("https://fieldschedulerbackend.herokuapp.com/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,9 +50,9 @@ function Login() {
     })
       .then((res) => res.json())
       .then((userInfo) => {
-        if(!userInfo.token){
-          alert("Invalid Username or Password")
-          return null
+        if (!userInfo.token) {
+          alert("Invalid Username or Password");
+          return null;
         }
         localStorage.token = userInfo.token;
         localStorage.setItem(`userId`, `${userInfo.player.id}`);
@@ -77,8 +77,17 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <StyledInput as="button" style={{position: 'relative',
-  left: '50%', transform: 'translate(-62%)'}} type="submit">Submit</StyledInput >
+        <StyledInput
+          as="button"
+          style={{
+            position: "relative",
+            left: "50%",
+            transform: "translate(-62%)",
+          }}
+          type="submit"
+        >
+          Submit
+        </StyledInput>
       </StyledForm>
     </>
   );

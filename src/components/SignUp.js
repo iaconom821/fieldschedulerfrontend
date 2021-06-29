@@ -1,16 +1,16 @@
 import { useState } from "react";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const StyledForm = styled.form`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-`
+`;
 
 const StyledLabel = styled.label`
-  color: #39FF14;
-  `
+  color: #39ff14;
+`;
 
 const StyledInput = styled.input`
   display: block;
@@ -22,7 +22,7 @@ const StyledInput = styled.input`
   text-align: center;
   margin: 4px;
   box-sizing: border-box;
-  `
+`;
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -35,7 +35,7 @@ function SignUp() {
 
   function signUp(e) {
     e.preventDefault();
-    fetch("http://localhost:3000/api/v1/players", {
+    fetch("https://fieldschedulerbackend.herokuapp.com/api/v1/players", {
       method: "POST",
       headers: {
         Authorization: `bearer ${jwt_token}`,
@@ -51,16 +51,20 @@ function SignUp() {
     })
       .then((res) => res.json())
       .then((resp) => {
-        if(!resp.token){
-          alert(resp.skill_level)
-          return null 
+        if (!resp.token) {
+          alert(resp.skill_level);
+          return null;
         }
-        (localStorage.token = resp.token)});
+        localStorage.token = resp.token;
+        localStorage.userId = resp.player_id;
+      });
   }
 
   return (
     <div>
-      <h2 style={{color: '#39FF14', margin: '0px', marginTop: '10px'}}>Signup</h2>
+      <h2 style={{ color: "#39FF14", margin: "0px", marginTop: "10px" }}>
+        Signup
+      </h2>
       <StyledForm onSubmit={(e) => signUp(e)}>
         <StyledLabel>Name</StyledLabel>
         <StyledInput

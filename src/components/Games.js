@@ -1,60 +1,63 @@
 import { useState, useEffect } from "react";
 import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 import GameShow from "./GameShow";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;`
+  flex-wrap: wrap;
+`;
 
 const StyledLink = styled(Link)`
   padding: 4px;
   margin: 2px;
   border: 1px solid black;
   background: whitesmoke;
-  font-size: .9em;
+  font-size: 0.9em;
   text-decoration: none;
   color: magenta;
   font: Arial;
-  width: 100px;`
+  width: 100px;
+`;
 
 function Games() {
   // GET Field Logic
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/games", {
+    fetch("https://fieldschedulerbackend.herokuapp.com/api/v1/games", {
       headers: { Authorization: `Bearer ${localStorage.token}` },
     })
       .then((res) => res.json())
       .then((text) => {
-        if(!localStorage.token){
-            return null
+        if (!localStorage.token) {
+          return null;
         }
-        setGames(text)});
+        setGames(text);
+      });
   }, []);
   let match = useRouteMatch();
 
-  if(!localStorage.userId){
-    return <h2>Please Log In or Sign Up</h2>
+  if (!localStorage.userId) {
+    return <h2>Please Log In or Sign Up</h2>;
   }
-  
-  if(!games[0]){
-      return <h2>Loading...</h2>
+
+  if (!games[0]) {
+    return <h2>Loading...</h2>;
   }
 
   const gameLinks = games.map((game) => {
     return (
       <StyledLink to={`${match.url}/${game.id}`} id={game.id} key={game.id}>
         {game.field.name} {game.id}
-      </StyledLink> 
+      </StyledLink>
     );
   });
 
-  function deleteGame (id) {
-    const delGame = games.filter(game=> `${game.id}` !== `${id}`)
-    setGames(delGame)
+  function deleteGame(id) {
+    const delGame = games.filter((game) => `${game.id}` !== `${id}`);
+    setGames(delGame);
   }
 
   const gameRoutes = games.map((game) => {
@@ -67,10 +70,8 @@ function Games() {
 
   return (
     <>
-      <h2 style={{color: '#FFFF00'}}>Games</h2>
-      <StyledDiv>
-        {gameLinks}
-      </StyledDiv>
+      <h2 style={{ color: "#FFFF00" }}>Games</h2>
+      <StyledDiv>{gameLinks}</StyledDiv>
       <Switch>{gameRoutes}</Switch>
     </>
   );

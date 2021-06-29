@@ -1,17 +1,17 @@
 import { useState } from "react";
-import {useHistory} from 'react-router-dom'
-import styled from 'styled-components'
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 const StyledForm = styled.form`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-`
+`;
 
 const StyledLabel = styled.label`
-  color: #39FF14;
-  `
+  color: #39ff14;
+`;
 
 const StyledInput = styled.input`
   display: block;
@@ -23,7 +23,7 @@ const StyledInput = styled.input`
   text-align: center;
   margin: 4px;
   box-sizing: border-box;
-  `
+`;
 
 function NewField(handleSetField, fieldArr) {
   // New Field Logic
@@ -33,12 +33,12 @@ function NewField(handleSetField, fieldArr) {
   const [imgUrl, setImgUrl] = useState("");
   const [fieldName, setFieldName] = useState("");
 
-  const history = useHistory()
+  const history = useHistory();
 
   function handleNewField(e) {
     e.preventDefault();
 
-    fetch("http://localhost:3000/api/v1/fields", {
+    fetch("https://fieldschedulerbackend.herokuapp.com/api/v1/fields", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -55,14 +55,15 @@ function NewField(handleSetField, fieldArr) {
       .then((text) => history.push(`/fields/${text.id}`));
   }
 
-  if(!localStorage.userId){
-    return <h2>Please Log In or Sign Up</h2>
+  if (!localStorage.userId) {
+    return <h2>Please Log In or Sign Up</h2>;
   }
 
   return (
     <StyledForm onSubmit={handleNewField}>
-      <StyledLabel>New Field</StyledLabel><br/>
-      <br/>
+      <StyledLabel>New Field</StyledLabel>
+      <br />
+      <br />
       <StyledLabel>Address</StyledLabel>
       <StyledInput
         type="text"
@@ -87,7 +88,9 @@ function NewField(handleSetField, fieldArr) {
         value={fieldName}
         onChange={(e) => setFieldName(e.target.value)}
       />
-      <StyledLabel as="button" type="submit">Submit New Field</StyledLabel>
+      <StyledLabel as="button" type="submit">
+        Submit New Field
+      </StyledLabel>
     </StyledForm>
   );
 }

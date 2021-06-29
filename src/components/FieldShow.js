@@ -2,7 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const StyledLink = styled(Link)`
   margin: 4px;
@@ -12,11 +12,13 @@ const StyledLink = styled(Link)`
   color: violet;
   background: whitesmoke;
   padding: 4px;
-  font-weight: bold;`
+  font-weight: bold;
+`;
 
 const StyledDiv = styled.div`
   width: 90%;
-  margin: auto;`
+  margin: auto;
+`;
 
 function FieldShow() {
   //get games logic
@@ -24,15 +26,18 @@ function FieldShow() {
   let { field_id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/fields/${field_id}`, {
-      headers: { Authorization: `Bearer ${localStorage.token}` },
-    })
+    fetch(
+      `https://fieldschedulerbackend.herokuapp.com/api/v1/fields/${field_id}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.token}` },
+      }
+    )
       .then((r) => r.json())
       .then((games) => setGames(games));
   }, [field_id]);
 
   let events = [];
-  let gamesList = []
+  let gamesList = [];
   if (games.games) {
     events = games.games.map((game) => {
       const startTime = game.start_time.split("Z")[0];
@@ -45,22 +50,29 @@ function FieldShow() {
       };
     });
 
-    gamesList = games.games.map(game => {
-      return <StyledLink key={game.id} to={location => location.pathname = `/games/${game.id}`}>{game.id}</StyledLink>
-    })
+    gamesList = games.games.map((game) => {
+      return (
+        <StyledLink
+          key={game.id}
+          to={(location) => (location.pathname = `/games/${game.id}`)}
+        >
+          {game.id}
+        </StyledLink>
+      );
+    });
   }
 
   return (
     <>
-    <h2 style={{color: '#FFFF00'}}>{games.name}</h2>
-    {gamesList}
-    <StyledDiv>
-      <FullCalendar
-        initalView="timeGridWeek"
-        plugins={[timeGridPlugin]}
-        events={events}
-      />
-    </StyledDiv>
+      <h2 style={{ color: "#FFFF00" }}>{games.name}</h2>
+      {gamesList}
+      <StyledDiv>
+        <FullCalendar
+          initalView="timeGridWeek"
+          plugins={[timeGridPlugin]}
+          events={events}
+        />
+      </StyledDiv>
     </>
   );
 }

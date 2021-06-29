@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledForm = styled.form`
-justify-content:center;
-`
+  justify-content: center;
+`;
 
 const StyledLabel = styled.label`
-  color: #39FF14;
-  `
+  color: #39ff14;
+`;
 
 const StyledInput = styled.input`
   margin: 0 auto;
@@ -20,50 +20,51 @@ const StyledInput = styled.input`
   border: 1px solid black;
   text-align-last: center;
   text-align: center;
-  `
-
+`;
 
 function EditGame() {
-
   const [skill, setSkill] = useState(0);
   const [price, setPrice] = useState(0);
   const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState('');
+  const [endTime, setEndTime] = useState("");
   const [fieldId, setFieldId] = useState("");
   const [fields, setFields] = useState([]);
 
-  const {game_id} = useParams()
-    console.log(game_id)
-  const history = useHistory()
+  const { game_id } = useParams();
+  console.log(game_id);
+  const history = useHistory();
 
   function handleEditGame(e) {
     e.preventDefault();
 
-    fetch(`http://localhost:3000/api/v1/games/${game_id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${localStorage.token}`,
-      },
-      body: JSON.stringify({
-        price: price,
-        start_time: startTime,
-        end_time: endTime,
-        field_id: parseInt(fieldId),
-        player_id: `${localStorage.userId}`,
-        recommended_skill: skill
-      }),
-    })
+    fetch(
+      `https://fieldschedulerbackend.herokuapp.com/api/v1/games/${game_id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+        body: JSON.stringify({
+          price: price,
+          start_time: startTime,
+          end_time: endTime,
+          field_id: parseInt(fieldId),
+          player_id: `${localStorage.userId}`,
+          recommended_skill: skill,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((text) => {
-        history.push(`/fields/${text.field.id}`)
+        history.push(`/fields/${text.field.id}`);
       });
   }
   let fieldOptions = [];
   if (fields[0]) {
     fieldOptions = fields.map((field) => {
       return (
-        <option className='fieldid' key={field.id} value={field.id}>
+        <option className="fieldid" key={field.id} value={field.id}>
           {field.name}
         </option>
       );
@@ -71,25 +72,28 @@ function EditGame() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/fields/`, {
+    fetch(`https://fieldschedulerbackend.herokuapp.com/api/v1/fields/`, {
       headers: { Authorization: `Bearer ${localStorage.token}` },
     })
       .then((r) => r.json())
       .then((games) => {
-        setFields(games)
-        setFieldId(games[0].id)
+        setFields(games);
+        setFieldId(games[0].id);
       });
-    
-      fetch(`http://localhost:3000/api/v1/games/${game_id}`, {
+
+    fetch(
+      `https://fieldschedulerbackend.herokuapp.com/api/v1/games/${game_id}`,
+      {
         headers: { Authorization: `Bearer ${localStorage.token}` },
-      })
-        .then((r) => r.json())
-        .then((games) => {
-          setSkill(parseInt(games.recommended_skill))
-          setPrice(games.price)
-          setStartTime(games.start_time.split('Z')[0])
-          setEndTime(games.end_time.split('Z')[0])
-        });
+      }
+    )
+      .then((r) => r.json())
+      .then((games) => {
+        setSkill(parseInt(games.recommended_skill));
+        setPrice(games.price);
+        setStartTime(games.start_time.split("Z")[0]);
+        setEndTime(games.end_time.split("Z")[0]);
+      });
   }, [game_id]);
 
   return (
@@ -123,7 +127,9 @@ function EditGame() {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <StyledInput as="button" type="submit">Submit Edited Game</StyledInput>
+      <StyledInput as="button" type="submit">
+        Submit Edited Game
+      </StyledInput>
     </StyledForm>
   );
 }
